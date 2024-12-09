@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Rider
 .idea
+
+# Pact contract files
+[Pp]act/
