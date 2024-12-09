@@ -7,7 +7,7 @@ namespace Provider.Api.Controllers;
 public record ProductDto(
     [property: JsonPropertyName("Id")] int Id,
     [property: JsonPropertyName("Name")] string Name,
-    [property: JsonPropertyName("Price")] double Price,
+    [property: JsonPropertyName("Price")] decimal Price,
     [property: JsonPropertyName("Location")] string Location)
 {
     public static ProductDto FromProduct(Product product) =>

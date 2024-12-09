@@ -20,26 +20,18 @@ public class ProviderStateMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly Func<Task> _resetDatabase;
-    private readonly IDictionary<string, Action> _providerStates;
+    private readonly Dictionary<string, Action<int, string, decimal>> _providerStates;
     private ProductContext _dbContext;
     
     public ProviderStateMiddleware(RequestDelegate next, Func<Task> resetDatabase)
     {
         _next = next;
         _resetDatabase = resetDatabase;
-        _providerStates = new Dictionary<string, Action>
+        _providerStates = new Dictionary<string, Action<int, string, decimal>>
         {
             {
-                "A product with id 1 exists",
-                () => MockData(1)
-            },
-            {
                 "A product exists",
-                () => MockData(1)
-            },
-            {
-                "Products exist",
-                () => MockData(1)
+                (productId, productName, productPrice) => MockData(productId, productName, productPrice)
             }
         };
     }
@@ -76,17 +68,21 @@ public class ProviderStateMiddleware
         {
             var actionExists = _providerStates.TryGetValue(providerState.State, out var dataSetupAction);
             if (!actionExists) { return; }
-            dataSetupAction!.Invoke();
+            dataSetupAction!.Invoke(
+                int.Parse(providerState.Params["productId"]),
+                providerState.Params["productName"],
+                decimal.Parse(providerState.Params["productPrice"])
+            );
         }
     }
     
-    private void MockData(int id)
+    private void MockData(int id, string productName, decimal price)
     {
         _dbContext.Add(new Product
         {
             Id = id,
-            Name = "A cool product",
-            Price = 10.5,
+            Name = productName,//"A cool product",
+            Price = price,//10.5,
             Location = "Cool Store #12345"
         });
         _dbContext.SaveChanges();
