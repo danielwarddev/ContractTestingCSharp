@@ -5,7 +5,7 @@ using Provider.Database;
 
 namespace Provider.Api.ContractTests;
 
-public record PossibleParameters(int? ProductId, string? productName, decimal? ProducePrice);
+public record PossibleParameters(int? ProductId, string? ProductName, decimal? ProducePrice);
 public record ProviderState(string Action, PossibleParameters Params, string State);
 
 public class ProviderStateMiddleware
