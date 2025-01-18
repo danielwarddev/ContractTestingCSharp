@@ -72,7 +72,7 @@ public class ProviderStateMiddleware
 
             await dataSetupAction!.Invoke(
                 providerState.Params.ProductId ?? 1,
-                providerState.Params.productName ?? "A cool product",
+                providerState.Params.ProductName ?? "A cool product",
                 providerState.Params.ProducePrice ?? 10.5m
             );
         }
