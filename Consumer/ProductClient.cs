@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 
 namespace Consumer;
 
-public record Product(int Id, string Name, double Price, string Location);
+public record Product(int Id, string Name, decimal Price, string Location);
 
 public interface IProductClient
 {

@@ -28,12 +28,11 @@ public class ProductControllerTests : IClassFixture<ProductApiFixture>
 
         var pactPath = Path.Combine("Pacts", "My Consumer Service-Product API.json");
         var pactVerifier = new PactVerifier("Product API", config);
-
+        
         pactVerifier
             .WithHttpEndpoint(_apiFixture.PactServerUri)
             .WithFileSource(new FileInfo(pactPath))
             .WithProviderStateUrl(new Uri(_apiFixture.PactServerUri, "/provider-states"))
-            .WithFilter("x A GET request to retrieve all products")
             .Verify();
     }
 }

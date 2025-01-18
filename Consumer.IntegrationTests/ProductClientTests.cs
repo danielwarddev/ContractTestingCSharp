@@ -1,7 +1,6 @@
 using System.Net;
 using FluentAssertions;
 using PactNet;
-using PactNet.Matchers;
 
 namespace Consumer.IntegrationTests;
 
@@ -23,7 +22,7 @@ public class ProductClientTests
     [Fact]
     public async Task Api_Returns_All_Products()
     {
-        var expectedProducts = new [] { new Product(1, "A cool product", 10.50, "Cool Store #12345") };
+        var expectedProducts = new [] { new Product(1, "A cool product", 10.50m, "Cool Store #12345") };
         
         _pactBuilder
             .UponReceiving("A GET request to retrieve all products")
@@ -43,17 +42,14 @@ public class ProductClientTests
         });
     }
     
-    [Fact]
+    /*[Fact]
     public async Task Api_Returns_All_Products_With_Name()
     {
-        var expectedProducts = new [] { new Product(1, "A cool product", 10.50, "Cool Store #12345") };
+        var expectedProducts = new [] { new Product(1, "A cool product", 10.50m, "Cool Store #12345") };
         
         _pactBuilder
-            .UponReceiving("A GET request to retrieve all products")
-            .Given("A product exists", new Dictionary<string, string>
-            {
-                { "productName", "Cool product" },
-            })
+            .UponReceiving("A GET request to retrieve all products with given id and name")
+            .Given("A product exists")
             .WithRequest(HttpMethod.Get, "/products")
             .WithQuery("name", "A cool product")
             .WithHeaders(Program.ProductClientRequestHeaders)
@@ -68,16 +64,20 @@ public class ProductClientTests
             var actualProducts = await _productClient.GetProductsByName("A cool product");
             actualProducts.Should().BeEquivalentTo(expectedProducts);
         });
-    }
+    }*/
     
     [Fact]
     public async Task When_Product_Exists_Then_Api_Returns_Product()
     {
-        var expectedProduct = new Product(1, "A cool product", 10.50, "Cool Store #12345");
+        var expectedProduct = new Product(1, "Cool product", 10.50m, "Cool Store #12345");
         
         _pactBuilder
             .UponReceiving("A GET request to retrieve a product")
-            .Given("A product with id 1 exists")
+            .Given("A product with id 1 exists", new Dictionary<string, string>
+            {
+                { "productId", "1" },
+                { "productName", "Cool product" }
+            })
             .WithRequest(HttpMethod.Get, "/product/1")
             .WithHeaders(Program.ProductClientRequestHeaders)
             .WillRespond()

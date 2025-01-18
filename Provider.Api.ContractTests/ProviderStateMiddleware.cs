@@ -1,37 +1,38 @@
 ﻿using System.Net;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Provider.Database;
 
 namespace Provider.Api.ContractTests;
 
-public class ProviderState
-{
-    [property: JsonPropertyName("action")]
-    public string Action { get; init; } = null!;
-    [property: JsonPropertyName("params")]
-    public Dictionary<string, string> Params { get; init; } = null!;
-    [property: JsonPropertyName("state")]
-    public string State { get; init; } = null!;
-}
+public record PossibleParameters(int? ProductId, string? productName, decimal? ProducePrice);
+public record ProviderState(string Action, PossibleParameters Params, string State);
 
 public class ProviderStateMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly Func<Task> _resetDatabase;
-    private readonly Dictionary<string, Action<int, string, decimal>> _providerStates;
+    private readonly Dictionary<string, Func<int, string, decimal, Task>> _providerStateSetups;
     private ProductContext _dbContext;
+    private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
     
     public ProviderStateMiddleware(RequestDelegate next, Func<Task> resetDatabase)
     {
         _next = next;
         _resetDatabase = resetDatabase;
-        _providerStates = new Dictionary<string, Action<int, string, decimal>>
+        _providerStateSetups = new Dictionary<string, Func<int, string, decimal, Task>>
         {
             {
+                "A product with id 1 exists",
+                async (productId, productName, productPrice) => await MockData(productId, productName, productPrice)
+            },
+            {
+                "Products exist",
+                async (productId, productName, productPrice) => await MockData(1, "A cool product", 10.5m)
+            },
+            {
                 "A product exists",
-                (productId, productName, productPrice) => MockData(productId, productName, productPrice)
+                async (productId, productName, productPrice) => await MockData(1, "A cool product", 10.5m)
             }
         };
     }
@@ -63,28 +64,29 @@ public class ProviderStateMiddleware
             body = await reader.ReadToEndAsync();
         }
         
-        var providerState = JsonSerializer.Deserialize<ProviderState>(body);
+        var providerState = JsonSerializer.Deserialize<ProviderState>(body, _jsonOptions);
         if (!string.IsNullOrEmpty(providerState?.State))
         {
-            var actionExists = _providerStates.TryGetValue(providerState.State, out var dataSetupAction);
+            var actionExists = _providerStateSetups.TryGetValue(providerState.State, out var dataSetupAction);
             if (!actionExists) { return; }
-            dataSetupAction!.Invoke(
-                int.Parse(providerState.Params["productId"]),
-                providerState.Params["productName"],
-                decimal.Parse(providerState.Params["productPrice"])
+
+            await dataSetupAction!.Invoke(
+                providerState.Params.ProductId ?? 1,
+                providerState.Params.productName ?? "A cool product",
+                providerState.Params.ProducePrice ?? 10.5m
             );
         }
     }
     
-    private void MockData(int id, string productName, decimal price)
+    private async Task MockData(int id, string productName, decimal price)
     {
-        _dbContext.Add(new Product
+        await _dbContext.AddAsync(new Product
         {
             Id = id,
-            Name = productName,//"A cool product",
-            Price = price,//10.5,
+            Name = productName,
+            Price = price,
             Location = "Cool Store #12345"
         });
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 }

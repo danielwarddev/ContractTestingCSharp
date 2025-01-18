@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Provider.Api.ContractTests;
+﻿namespace Provider.Api.ContractTests;
 
 public class TestStartup
 {

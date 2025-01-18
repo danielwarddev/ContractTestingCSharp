@@ -29,7 +29,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Pacts\My Consumer Service-Product API.json" />
+      <Content Update="Pacts\My Consumer Service-Product API.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
