@@ -104,6 +104,50 @@
         "status": 200
       },
       "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "A GET request to retrieve all products with given id and name",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "A product exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "path": "/products",
+        "query": {
+          "name": [
+            "A cool product"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "Id": 1,
+              "Location": "Cool Store #12345",
+              "Name": "A cool product",
+              "Price": 10.5
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
     }
   ],
   "metadata": {

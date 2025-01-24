@@ -16,7 +16,8 @@ public class QueryStringValidatorFilter : IResourceFilter
             {
                 unknownParameters.Add(item.Key,
                     [$"Query string \"{item.Key}\" does not bind to any parameter. " +
-                     $"Valid parameter names for endpoint {context.HttpContext.Request.Path} are: {string.Join(", ", parameters)}."]);
+                     $"Valid parameter names for endpoint {context.HttpContext.Request.Path} " +
+                     $"are: {string.Join(", ", parameters)}."]);
             }
         }
 

@@ -42,7 +42,7 @@ public class ProductClientTests
         });
     }
     
-    /*[Fact]
+    [Fact]
     public async Task Api_Returns_All_Products_With_Name()
     {
         var expectedProducts = new [] { new Product(1, "A cool product", 10.50m, "Cool Store #12345") };
@@ -64,7 +64,7 @@ public class ProductClientTests
             var actualProducts = await _productClient.GetProductsByName("A cool product");
             actualProducts.Should().BeEquivalentTo(expectedProducts);
         });
-    }*/
+    }
     
     [Fact]
     public async Task When_Product_Exists_Then_Api_Returns_Product()
