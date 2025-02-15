@@ -1,14 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "Consumer\Consumer.csproj", "{CC893633-A808-4634-9878-DBECE118DFD1}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer", "Consumer\Consumer.csproj", "{CC893633-A808-4634-9878-DBECE118DFD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer.IntegrationTests", "Consumer.IntegrationTests\Consumer.IntegrationTests.csproj", "{E1D74A0A-2206-499D-AC9D-B49D5AA5CDB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer.IntegrationTests", "Consumer.IntegrationTests\Consumer.IntegrationTests.csproj", "{E1D74A0A-2206-499D-AC9D-B49D5AA5CDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Provider.Api", "Provider.Api\Provider.Api.csproj", "{5FB04D23-21EF-4D7C-94F1-B92E9B374321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provider.Api", "Provider.Api\Provider.Api.csproj", "{5FB04D23-21EF-4D7C-94F1-B92E9B374321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Provider.Database", "Provider.Database\Provider.Database.csproj", "{6FF4FB90-DD72-42AF-951A-1287221F4A4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provider.Database", "Provider.Database\Provider.Database.csproj", "{6FF4FB90-DD72-42AF-951A-1287221F4A4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Provider.Api.ContractTests", "Provider.Api.ContractTests\Provider.Api.ContractTests.csproj", "{E3ED71AE-D1CE-44F1-BF9C-926468C0FD03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provider.Api.ContractTests", "Provider.Api.ContractTests\Provider.Api.ContractTests.csproj", "{E3ED71AE-D1CE-44F1-BF9C-926468C0FD03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +39,11 @@ Global
 		{E3ED71AE-D1CE-44F1-BF9C-926468C0FD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3ED71AE-D1CE-44F1-BF9C-926468C0FD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3ED71AE-D1CE-44F1-BF9C-926468C0FD03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA303A21-4816-47D9-98E6-F0A348BE7391}
 	EndGlobalSection
 EndGlobal

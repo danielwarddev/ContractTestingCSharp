@@ -11,8 +11,6 @@ public class TestStartup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        // This line is required for the test assembly to be able to register the real endpoints
-        //services.AddControllers().AddApplicationPart(Assembly.GetAssembly(typeof(Startup))!);
         _realStartup.ConfigureServices(services);
         services.AddControllers(options =>
         {

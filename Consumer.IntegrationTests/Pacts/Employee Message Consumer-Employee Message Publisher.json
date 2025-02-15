@@ -1,0 +1,54 @@
+{
+  "consumer": {
+    "name": "Employee Message Consumer"
+  },
+  "interactions": [
+    {
+      "contents": {
+        "content": {
+          "Department": "Sales",
+          "Id": 1,
+          "Name": "John Doe",
+          "Position": "Sales Manager"
+        },
+        "contentType": "application/json",
+        "encoded": false
+      },
+      "description": "An employee event",
+      "matchingRules": {
+        "body": {
+          "$": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "contentType": "application/json"
+      },
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "some expected provider state"
+        }
+      ],
+      "type": "Asynchronous/Messages"
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.16",
+      "models": "1.1.19"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "Employee Message Publisher"
+  }
+}

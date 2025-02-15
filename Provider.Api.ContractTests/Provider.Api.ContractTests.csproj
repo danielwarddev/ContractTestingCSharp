@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NSubstitute" Version="5.3.0" />
         <PackageReference Include="PactNet" Version="5.0.0-beta.2" />
         <PackageReference Include="PactNet.Output.Xunit" Version="1.0.0" />
         <PackageReference Include="Respawn" Version="6.2.1" />
@@ -32,6 +33,10 @@
       <Content Update="Pacts\My Consumer Service-Product API.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="Pacts\Employee Message Consumer-Employee Message Publisher.json" />
     </ItemGroup>
 
 </Project>
