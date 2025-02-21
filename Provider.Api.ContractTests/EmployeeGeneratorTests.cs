@@ -41,7 +41,8 @@ public class EmployeeGeneratorTests : IDisposable, IAsyncLifetime
                     () => _employeeGenerator.CreateEmployee()
                 );
             })
-            .WithFileSource(new FileInfo(_pactPath))
+            .WithFileSource(new FileInfo(_pactPath)) // Using a local file - mostly for example, not recommended for real use cases
+            //.WithPactBrokerSource(new Uri("http://localhost")) // Using a Pact broker - recommended for real use cases
             .Verify();
     }
     
